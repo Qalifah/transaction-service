@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "./proto";
+
+import "google/protobuf/timestamp.proto";
+
+service Transaction {
+  rpc CreditAccount(Transfer) returns (TransferResponse) {}
+  rpc DebitAccount(Transfer) returns (TransferResponse) {}
+}
+
+message Transfer {
+  uint32 from = 1;
+  uint32 to = 2;
+  uint64 amount = 3;
+ google.protobuf.Timestamp performed_at = 5;
+}
+
+message TransferResponse {
+  bool is_successful = 1;
+  string error = 2;
+}
